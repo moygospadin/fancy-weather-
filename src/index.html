@@ -4,88 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
     <title>Document</title>
 </head>
 
 <body>
-
-
-    <div class="control-block">
-        <div class="control-buttons">
-            <div id="refresh-btn" class="control-buttons__bg-switcher">
-                <img id="refresh-img" class="control-buttons__bg-switcher-img" src="img/refresh-icon.svg" alt="">
-            </div>
-            <select class="control-buttons__lang-switcher" name="" id="lang-switcher">
-            <option class="control-buttons__lang">en</option>
-            <option class="control-buttons__lang">ru</option>
-            <option class="control-buttons__lang">be</option>
-        </select>
-            <div id="degrees" class="control-buttons__degrees">
-                <div id="us" class="control-buttons__fahrenheit">
-                    <p><sup>o</sup>F</p>
-                </div>
-                <div id="si" class="control-buttons__celsius degrees-active">
-                    <p><sup>o</sup>C</p>
-                </div>
-            </div>
-        </div>
-        <div class="control-search">
-            <input id="search-town" class="control-search__input" type="text">
-            <div id="microphone" class="control-search__microphone"><img src="img/microphone.svg" alt=""></div>
-            <button id="search-btn" class="control-search__btn">SEARCH</button>
-        </div>
-    </div>
-
-
-
-
-
-    <div class="weather-block">
-        <div class="todays-weather">
-            <h3 id="location" class="todays-weather__location">Minsk, Belarus</h3>
-            <p id="date" class="todays-weather__date">Mon, May 25, 09:15</p>
-            <div id="today" class="todays-weather-forecast">
-                <h2 class="todays-weather-forecast__degrees">11</h2>
-                <div class="todays-weather-forecast__degrees-circle"></div>
-                <div class="todays-weather-forecast-info">
-                    <img class="todays-weather-forecast-info__img" src="img/rain.png" alt="">
-                    <p class="todays-weather-forecast-info__text">Possible light rain in the afternoon.<br>Feels like: 10°<br>Wind: 2.18 m/s<br>Humidity: 79%</p>
-                </div>
-            </div>
-        </div>
-        <div id="future" class="future">
-            <div class="future-day">
-                <p class="future-day__name">Tuesday</p>
-                <div class="future-day-forecast">
-                    <p class="future-day-forecast__degrees">14</p>
-                    <div class="future-day-forecast__degrees-circle"></div>
-                    <img class="future-day-forecast__img" src="img/partly-cloudy-day.png" alt="">
-                </div>
-            </div>
-            <div class="future-day">
-                <p class="future-day__name">Wednesday</p>
-                <div class="future-day-forecast">
-                    <p class="future-day-forecast__degrees">15</p>
-                    <div class="future-day-forecast__degrees-circle"></div>
-                    <img class="future-day-forecast__img" src="img/cloudy.png" alt="">
-                </div>
-            </div>
-            <div class="future-day">
-                <p class="future-day__name">Thursday</p>
-                <div class="future-day-forecast">
-                    <p class="future-day-forecast__degrees">15</p>
-                    <div class="future-day-forecast__degrees-circle"></div>
-                    <img class="future-day-forecast__img" src="img/rain.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="map"></div>
-
-    <script>
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>

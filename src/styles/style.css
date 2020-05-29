@@ -1,0 +1,585 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    background-color: #CCCCCC;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.control-block {
+    display: flex;
+    padding: 30px 5vw 0px;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.control-buttons {
+    display: flex;
+}
+
+.control-buttons__bg-switcher {
+    width: 44px;
+    height: 44px;
+    margin-right: 10px;
+    padding: 8px 6px;
+    background-image: url(../assets/back.png);
+    background-size: cover;
+    border-radius: mixed;
+    cursor: pointer;
+}
+
+.control-buttons__bg-switcher-img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.rotate {
+    animation: rotate 3s linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(1080deg);
+    }
+}
+
+.control-buttons__lang-switcher {
+    width: 71px;
+    height: 44px;
+    margin-right: 10px;
+    padding: 13px 14px;
+    background-size: cover;
+    background-color: rgb(174, 181, 185);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.control-buttons__lang {
+    color: white;
+    font-weight: bold;
+}
+
+.control-buttons__degrees {
+    display: flex;
+}
+
+.control-buttons__fahrenheit {
+    width: 44px;
+    height: 44px;
+    padding: 11px 13px;
+    background-color: rgb(76, 82, 85, 0.4);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+}
+
+.control-buttons__celsius {
+    width: 44px;
+    height: 44px;
+    padding: 11px 13px;
+    background-color: rgb(76, 82, 85, 0.4);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+
+.degrees-active {
+    background-color: rgb(174, 181, 185);
+    color: white;
+}
+
+.control-search__input {
+    width: 240px;
+    height: 44px;
+    padding: 13px 15px;
+    background-color: rgb(76, 82, 85, 0.4);
+    color: white;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid rgba(228, 227, 227, 0.2);
+    border-right: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.control-search__microphone {
+    width: 34px;
+    height: 44px;
+    padding: 12px 0px 0px 7px;
+    color: white;
+    background-color: rgb(76, 82, 85, 0.4);
+    border: 1px solid rgba(228, 227, 227, 0.2);
+    border-left: 0;
+    cursor: pointer;
+}
+
+.control-search {
+    display: flex;
+}
+
+.control-search__btn {
+    width: 101px;
+    height: 44px;
+    background-color: rgb(174, 181, 185, 0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+
+.control__cities-block {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+.control__cities {
+    width: 60vw;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 1vw;
+    list-style: none;
+}
+
+.cities-city {
+    width: 100%;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.7vw;
+    color: black;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.cities-city:last-child {
+    border-bottom: 0;
+}
+
+.weather-and-map-block {
+    display: flex;
+    padding: 0 5vw;
+    justify-content: space-between;
+}
+
+.todays-weather__location {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.2vw;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.todays-weather__date {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5vw;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+
+.todays-weather__time {
+    margin-left: 1vw;
+}
+
+.todays-weather-forecast {
+    display: flex;
+}
+
+.todays-weather-forecast__degrees {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 1200;
+    font-size: 22vw;
+    line-height: 360px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.todays-weather-forecast__degrees-circle {
+    width: 4vw;
+    height: 4vw;
+    margin: 6vw 0 0 2vw;
+    border-radius: 100%;
+    border: 1vw solid #FFFFFF;
+    z-index: 2;
+}
+
+.todays-weather-forecast-info__img {
+    width: 14vw;
+    height: 12vw;
+    margin: 0 0 0 -4vw;
+    animation: scale 2s linear infinite;
+}
+
+.todays-weather-forecast-info__text {
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5vw;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.7vw;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.future {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.future-day {
+    margin-right: 50px;
+}
+
+.future-day:last-child {
+    margin-right: 0;
+}
+
+.future-day__name {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5vw;
+    line-height: 2vw;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.future-day-forecast {
+    display: flex;
+}
+
+.future-day-forecast__degrees {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 5vw;
+    line-height: 80px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.future-day-forecast__degrees-circle {
+    width: 2vw;
+    height: 2vw;
+    margin: 4px 5px 0 5px;
+    border-radius: 100%;
+    border: 5px solid #FFFFFF;
+}
+
+.future-day-forecast__img {
+    width: 6vw;
+    height: 6vw;
+    margin-top: 10px;
+    animation: scale 2s linear infinite;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.map-block {
+    margin-top: 6vw;
+}
+
+.map-block__map {
+    width: 25vw;
+    height: 25vw;
+    margin-bottom: 10px;
+    background-color: aqua;
+    border-radius: 1vw;
+}
+
+.map-block__coordinates {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5vw;
+    line-height: 25px;
+    text-align: right;
+    text-transform: capitalize;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 1150px) {
+    .control-block {
+        padding: 30px 2vw 0px;
+    }
+    .weather-and-map-block {
+        padding: 0 2vw;
+    }
+    .todays-weather-forecast {
+        margin-bottom: 40px;
+    }
+    .todays-weather__location {
+        font-size: 3.4vw;
+    }
+    .todays-weather__date {
+        font-size: 1.7vw;
+    }
+    .todays-weather-forecast-info__text {
+        font-size: 2vw;
+        margin-left: 3vw;
+    }
+    .todays-weather-forecast__degrees {
+        line-height: 300px;
+    }
+    .future {
+        justify-content: center;
+    }
+    .future-day__name {
+        font-size: 2vw;
+    }
+    .future-day-forecast__degrees {
+        font-size: 7vw;
+    }
+    .future-day-forecast__degrees-circle {
+        width: 2vw;
+        height: 2vw;
+    }
+    .future-day-forecast__img {
+        width: 5vw;
+        height: 5vw;
+    }
+    .map-block__map {
+        width: 35vw;
+        height: 40vw;
+    }
+    .map-block__coordinates {
+        font-size: 2.3vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .weather-and-map-block {
+        flex-direction: column;
+    }
+    .todays-weather__location {
+        text-align: center;
+        font-size: 6vw;
+        line-height: 5vw;
+    }
+    .todays-weather__date {
+        text-align: center;
+        font-size: 4vw;
+        line-height: 6vw;
+    }
+    .todays-weather-forecast__degrees {
+        margin-left: 5vw;
+        font-size: 27vw;
+        line-height: 30vw;
+    }
+    .todays-weather-forecast-info__text {
+        margin-left: 15vw;
+        font-size: 2.7vw;
+        line-height: 3.2vw;
+    }
+    .future {
+        padding: 0;
+        justify-content: space-around;
+    }
+    .future-day {
+        margin-right: 20px;
+    }
+    .future-day:last-child {
+        margin-right: 0;
+    }
+    .future-day__name {
+        font-size: 3.3vw;
+        line-height: 2.8vw;
+    }
+    .future-day-forecast {
+        justify-content: center;
+    }
+    .future-day-forecast__degrees {
+        font-size: 12vw;
+        line-height: 11vw;
+    }
+    .future-day-forecast__degrees-circle {
+        width: 3vw;
+        height: 3vw;
+    }
+    .future-day-forecast__img {
+        width: 8vw;
+        height: 8vw;
+    }
+    .map-block__map {
+        width: 100%;
+        height: 60vw;
+        margin: 0 auto;
+    }
+    .map-block__coordinates {
+        font-size: 4vw;
+        line-height: 5vw;
+    }
+    .todays-weather-forecast {
+        margin-bottom: 4vw;
+    }
+    .cities-city {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .control-buttons__bg-switcher {
+        width: 35px;
+        height: 35px;
+        padding: 8px 9px;
+    }
+    .control-buttons__lang-switcher {
+        width: 40px;
+        height: 35px;
+        padding: 8px 14px;
+        border-radius: 3px;
+    }
+    .control-buttons__fahrenheit {
+        width: 35px;
+        height: 35px;
+        padding: 7px 8px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .control-buttons__celsius {
+        width: 35px;
+        height: 35px;
+        padding: 7px 8px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+    .control-search__input {
+        width: 100px;
+        height: 35px;
+        padding: 8px 7px;
+        font-size: 12px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    .control-search__microphone {
+        width: 20px;
+        height: 35px;
+        padding: 8px 0px 0px 0px;
+    }
+    .control-search {
+        display: flex;
+    }
+    .control-search__btn {
+        width: 50px;
+        height: 35px;
+        font-size: 9px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .control-buttons__bg-switcher {
+        width: 25px;
+        height: 25px;
+        padding: 3px 5px;
+    }
+    .control-buttons__lang-switcher {
+        width: 40px;
+        height: 25px;
+        font-size: 12px;
+        padding: 0px 0px;
+    }
+    .control-buttons__fahrenheit {
+        width: 25px;
+        height: 25px;
+        padding: 3px 4px;
+    }
+    .control-buttons__celsius {
+        width: 25px;
+        height: 25px;
+        padding: 3px 4px;
+    }
+    .control-search__input {
+        width: 90px;
+        height: 25px;
+        padding: 6px 3px;
+        font-size: 12px;
+    }
+    .control-search__microphone {
+        width: 20px;
+        height: 25px;
+        padding: 3px 0px 0px 0px;
+    }
+    .control-search__btn {
+        width: 50px;
+        height: 25px;
+        font-size: 9px;
+    }
+    .todays-weather-forecast-info__text {
+        font-size: 3vw;
+        line-height: 4vw;
+    }
+    .future {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .future-day__name {
+        font-size: 8vw;
+        line-height: 11vw;
+    }
+    .future-day:first-child {
+        margin-right: 7vw;
+    }
+    .future-day-forecast__degrees {
+        font-size: 14vw;
+        line-height: 17vw;
+    }
+    .future-day-forecast__degrees-circle {
+        width: 3vw;
+        height: 3vw;
+    }
+    .future-day-forecast__img {
+        width: 11vw;
+        height: 11vw;
+    }
+}

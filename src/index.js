@@ -1,88 +1,115 @@
-import './style.css';
+import { weatherElementsGenerator, getWeatherForecast, weatherBlock } from './weatherBlock';
+import { controlBlockCreater, translations } from './controlBlock';
+import { dateTime, clean, setBackgroundImg, updateBg, recordVoice } from './utils';
+import { mapBlock, CurrentUserLocation, setMap, getСityСoordinates, cityList, cityListCreater } from './geolocationBlock';
+import './styles/style.css';
 
+let timeZone;
+let lang = (localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'en';
+let degrees = (localStorage.getItem('degrees')) ? localStorage.getItem('degrees') : 'si';
+let cityName;
+let cityCoordinates;
+let cityNumber = 0;
+let weather;
 
-
-function getImg() {
-
-    var url = "https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=nature&client_id=-G8b2M1DsWaf6rkCtcf4wTn3PP2cIr0gpU8GsdN9wrM";
-    fetch(url)
-        .then((response) => {
-            return response.json();
+function updateWeatherForecast(location) {
+    clean();
+    getWeatherForecast(location, degrees, lang)
+        .then((weatherForecast) => {
+            timeZone = weatherForecast.timezone;
+            weather = weatherForecast.currently.icon;
+            weatherElementsGenerator(weatherForecast, lang, timeZone);
         })
-        .then((data) => {
-
-            document.body.style.backgroundImage = `url(${data.urls.regular})`;
-
-
-        }).catch((e) => {
-            console.log(e);
-
+        .catch((error) => {
+            console.log(error);
         });
-
-
 }
 
-function getWeather() {
-    let city_name = 'Minsk';
-    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${city_name}&lang=ua&units=metric&APPID=e1a026395101841860c9ed0627bf193d`;
-    fetch(url)
-        .then((response) => {
-            return response.json();
+function updateData(userLocationCity) {
+    getСityСoordinates(userLocationCity, lang)
+        .then((cityCoord) => {
+            cityName = (cityCoord.results[cityNumber].components.city || cityCoord.results[cityNumber].components.state);
+            document.getElementById('location').innerHTML = `${(cityCoord.results[cityNumber].components.city || cityCoord.results[cityNumber].components.state)}, ${cityCoord.results[cityNumber].components.country}`;
+            cityCoordinates = cityCoord.results[cityNumber].geometry;
+            setMap(cityCoordinates, lang);
+            updateWeatherForecast(cityCoordinates);
         })
-        .then((data) => {
-
-
-            generateWeatherCard(data);
-        }).catch((e) => {
-            console.log(e);
-
+        .catch((error) => {
+            console.log(error);
         });
-
-
 }
 
-// function getGeocoding() {
-//     let city_name = 'Minsk';
-//     var url = `https://api.opencagedata.com/geocode/v1/json?q=${city_name}&key=c6b6da0f80f24b299e08ee1075f81aa5&pretty=1&no_annotations=1`;
-//     fetch(url)
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((data) => {
-
-//             generateWeatherCard(data);
-//         }).catch((e) => {
-//             console.log(e);
-
-//         });
-
-
-// }
-
-function generateMap() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoibW95Z29zcGFkaW4xMzM3IiwiYSI6ImNrYW00ZnJyazEwZWkydHA2dmptNWtlbXYifQ.DSZRTK__vly8-UwK-VmWDQ';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+CurrentUserLocation()
+    .then((userLocationCity) => {
+        cityNumber = 0;
+        updateData(userLocationCity);
+    })
+    .catch((error) => {
+        console.log(error);
     });
-}
-generateMap();
 
+setBackgroundImg(weather, timeZone);
 
 setInterval(() => {
-    var now = new Date();
-
-    document.getElementsByClassName('todays-weather__date')[0].innerHTML = `${now.getDate()}` + "." + `${now.getMonth()}` + "." + `${now.getFullYear()}` + "  " + `${now.getHours()}` + ":" + `${now.getMinutes()}` + ":" + `${now.getSeconds()}`;
+    document.getElementById('date').innerHTML = dateTime(timeZone, lang);
 }, 1000);
 
-function generateWeatherCard(data) {
-    console.log(data);
-    console.log(data.name);
+const weatherAndMapBlock = document.createElement('div');
+weatherAndMapBlock.className = 'weather-and-map-block';
 
-    document.getElementsByClassName('todays-weather__location')[0].innerHTML = data.city.name;
-    document.getElementsByClassName('todays-weather-forecast__degrees')[0].innerHTML = Math.ceil(data.list[0].main.temp);
-}
-getWeather();
-getImg();
+weatherAndMapBlock.appendChild(weatherBlock);
+weatherAndMapBlock.appendChild(mapBlock);
+
+document.body.appendChild(cityList);
+document.body.appendChild(controlBlockCreater());
+document.getElementById('lang-switcher').value = lang;
+document.getElementById('search-btn').innerHTML = translations[lang];
+document.getElementById(degrees).classList.add('degrees-active');
+document.body.appendChild(weatherAndMapBlock);
+
+document.getElementById('refresh-btn').addEventListener('click', updateBg);
+
+document.getElementById('degrees').addEventListener('click', (e) => {
+    if (e.target.id !== degrees && e.target.parentNode.id !== degrees && e.target.parentNode.parentNode.id !== degrees) {
+        degrees = (degrees === 'us') ? 'si' : 'us';
+        document.getElementById('us').classList.toggle('degrees-active');
+        document.getElementById('si').classList.toggle('degrees-active');
+        updateWeatherForecast(cityCoordinates);
+    }
+});
+
+document.getElementById('lang-switcher').addEventListener('input', (e) => {
+    lang = e.target.value;
+    document.getElementById('search-btn').innerHTML = translations[lang];
+    updateData(cityName);
+});
+
+document.getElementById('search-btn').addEventListener('click', () => {
+    cityName = document.getElementById('search-town').value;
+    getСityСoordinates(cityName, lang)
+        .then((cityCoord) => {
+            document.getElementById('location').innerHTML = `${(cityCoord.results[cityNumber].components.city || cityCoord.results[cityNumber].components.state)}, ${cityCoord.results[cityNumber].components.country}`;
+            cityCoordinates = cityListCreater(cityCoord);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+document.getElementById('cities-list').addEventListener('click', (e) => {
+    cityCoordinates = cityCoordinates[e.target.id];
+    cityNumber = +e.target.id;
+    e.currentTarget.innerHTML = '';
+    document.getElementById('cities-block').style.display = 'none';
+    document.getElementById('location').innerHTML = e.target.innerHTML;
+    setMap(cityCoordinates, lang);
+    updateWeatherForecast(cityCoordinates);
+    updateBg();
+});
+
+document.getElementById('microphone').addEventListener('click', recordVoice);
+
+window.onbeforeunload = () => {
+    localStorage.setItem('lang', lang);
+    localStorage.setItem('degrees', degrees);
+};

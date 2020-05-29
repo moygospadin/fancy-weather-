@@ -36,7 +36,7 @@ module.exports = {
                 collapseWhitespace: true,
             },
         }), new CleanWebpackPlugin(),
-        new CopyPlugin([{ from: './src/img', to: './img' }])
+        new CopyPlugin([{ from: './src/assets', to: './assets' }])
 
     ]
 };
