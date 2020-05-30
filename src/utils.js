@@ -45,7 +45,7 @@ function clean() {
 
 async function searchByQuery(query) {
     const backgroundImgUrl = 'https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=';
-    const backgroundImgAccessKey = '&client_id=7a3d99c5f600e86bde4732a3fa580fa3353b56c7ffe03cd92ee6a9b3da45deec';
+    const backgroundImgAccessKey = '&client_id=-G8b2M1DsWaf6rkCtcf4wTn3PP2cIr0gpU8GsdN9wrM';
     try {
         const url = backgroundImgUrl + query + backgroundImgAccessKey;
         const response = await fetch(url);
@@ -82,19 +82,24 @@ function recordVoice() {
     document.querySelector('#search-town').value = "";
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new window.SpeechRecognition();
-    recognition.interimResults = false;
+    recognition.interimResults = true;
     recognition.start();
+    var text = document.getElementsByClassName('todays-weather-forecast-info__text')[0].textContent;
     recognition.addEventListener('result', (event) => {
-        const transcript = Array.from(event.results)
-            .map((result) => result[0])
-            .map((result) => result.transcript)
-            .join('');
-        document.querySelector('#search-town').value = transcript;
-        let text = document.querySelector('.todays-weather-forecast-info__text').textContent;
-        if (transcript == "weather" || transcript == "Weather" || transcript == "forecast" || transcript == "Forecast") speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+        console.log(event);
 
+        var result = event.results[event.resultIndex];
+        if (result.isFinal) {
+            document.querySelector('#search-town').value = result[0].transcript;
+
+            if (result[0].transcript == "погода") speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+        } else {
+            document.querySelector('#search-town').value = result[0].transcript;
+
+        }
 
     });
+
 
 }
 
