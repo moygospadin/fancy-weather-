@@ -66,7 +66,7 @@ function setMap(location, lang) {
 }
 
 async function getСityСoordinates(city, lang) {
-    const coordinatesUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=9fa31fda73414a3e83d508299aaff1a8&pretty=1&no_annotations=1&language=${lang}`;
+    const coordinatesUrl = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=9192c036c189474c8de9ce3eed892f44&pretty=1&no_annotations=1&language=${lang}`;
     try {
         const response = await fetch(coordinatesUrl);
         const data = await response.json();
