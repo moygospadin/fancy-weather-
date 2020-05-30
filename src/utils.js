@@ -77,22 +77,25 @@ function updateBg(weather, timeZone) {
     setBackgroundImg(weather, timeZone);
 }
 
+
 function recordVoice() {
-    const recognintion = new webkitSpeechRecognition();
-    recognintion.lang = 'en-US';
-    recognintion.interimResults = true;
-    recognintion.start();
-    recognintion.addEventListener('result', (event) => {
+    document.querySelector('#search-town').value = "";
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new window.SpeechRecognition();
+    recognition.interimResults = false;
+    recognition.start();
+    recognition.addEventListener('result', (event) => {
         const transcript = Array.from(event.results)
             .map((result) => result[0])
             .map((result) => result.transcript)
             .join('');
-        console.log(transcript);
+        document.querySelector('#search-town').value = transcript;
+        let text = document.querySelector('.todays-weather-forecast-info__text').textContent;
+        if (transcript == "weather" || transcript == "Weather" || transcript == "forecast" || transcript == "Forecast") speechSynthesis.speak(new SpeechSynthesisUtterance(text));
 
-        if (transcript == "Lacoste") transcript == "Forecast";
-        if (transcript == "ваза") transcript == "Weather";
-        document.getElementById('search-town').value = transcript;
+
     });
+
 }
 
 export { dateTime, clean, setBackgroundImg, updateBg, recordVoice };
