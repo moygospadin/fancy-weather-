@@ -76,31 +76,55 @@ function updateBg(weather, timeZone) {
     }, 3000);
     setBackgroundImg(weather, timeZone);
 }
-
+var volume = 0.5;
 
 function recordVoice() {
     document.querySelector('#search-town').value = "";
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new window.SpeechRecognition();
     recognition.interimResults = true;
-    recognition.start();
     var text = document.getElementsByClassName('todays-weather-forecast-info__text')[0].textContent;
+    text = text.replace('.', '')
+    let mySpeak = new SpeechSynthesisUtterance(text);
+    switch (document.querySelector('.control-search__btn').textContent) {
+        case 'ПОИСК':
+            recognition.lang = "ru-RU";
+            mySpeak.lang = 'ru-RU';
+            break;
+        case 'SEARCH':
+            recognition.lang = "en-US";
+            mySpeak.lang = 'en-US';
+            break;
+        case 'ПОШУК':
+            mySpeak.lang = 'ru-RU';
+            recognition.lang = "ru-RU";
+            break;
+        default:
+            recognition.lang = "en-US";
+            mySpeak.lang = 'en-US';
+            break;
+    }
+    recognition.start();
     recognition.addEventListener('result', (event) => {
-        console.log(event);
-
         var result = event.results[event.resultIndex];
         if (result.isFinal) {
             document.querySelector('#search-town').value = result[0].transcript;
+            var synth = window.speechSynthesis;
+            if (result[0].transcript.toLowerCase() == "погода" || result[0].transcript.toLowerCase() == "weather" || result[0].transcript.toLowerCase() == "forecast") synth.speak(mySpeak);
+            if (result[0].transcript.toLowerCase() == "тише" || result[0].transcript.toLowerCase() == "quieter" || result[0].transcript.toLowerCase() == "quieter") {
+                volume -= 0.3;
+                mySpeak.volume = volume;
 
-            if (result[0].transcript == "погода") speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+            }
+            if (result[0].transcript.toLowerCase() == "громче" || result[0].transcript.toLowerCase() == "louder") {
+                volume += 0.3;
+                mySpeak.volume = volume;
+
+            }
         } else {
             document.querySelector('#search-town').value = result[0].transcript;
-
         }
-
     });
-
-
 }
 
 export { dateTime, clean, setBackgroundImg, updateBg, recordVoice };

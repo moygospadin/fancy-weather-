@@ -6,6 +6,8 @@ import './styles/style.css';
 
 let timeZone;
 let lang = (localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'en';
+
+
 let degrees = (localStorage.getItem('degrees')) ? localStorage.getItem('degrees') : 'si';
 let cityName;
 let cityCoordinates;

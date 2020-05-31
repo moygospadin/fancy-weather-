@@ -29,6 +29,7 @@ function controlBlockCreater() {
     <input id="search-town" class="control-search__input" type="text">
     <div id="microphone" class="control-search__microphone"><img src="assets/microphone.svg" alt=""></div>
     <button id="search-btn" class="control-search__btn">SEARCH</button>
+    
     </div>`;
     return controlBlock;
 }
