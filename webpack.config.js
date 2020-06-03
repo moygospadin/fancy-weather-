@@ -38,5 +38,8 @@ module.exports = {
         }), new CleanWebpackPlugin(),
         new CopyPlugin([{ from: './src/assets', to: './assets' }])
 
+    ],
+    presets: [
+        ['@babel/preset-env', { targets: { node: 'current' } }]
     ]
 };
