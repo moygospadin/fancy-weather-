@@ -1,6 +1,6 @@
 import { weatherElementsGenerator, getWeatherForecast, weatherBlock } from './weatherBlock';
 import { controlBlockCreater, translations } from './controlBlock';
-import { dateTime, clean, setBackgroundImg, updateBg, recordVoice } from './utils';
+import { dateTime, clean, setBackgroundImg, updateBg, recordVoice, voiceSpeak } from './utils';
 import { mapBlock, CurrentUserLocation, setMap, getСityСoordinates, cityList, cityListCreater } from './geolocationBlock';
 import './styles/style.css';
 
@@ -86,7 +86,7 @@ document.getElementById('lang-switcher').addEventListener('input', (e) => {
     updateData(cityName);
 });
 
-document.getElementById('search-btn').addEventListener('click', () => {
+export function searchCity() {
     cityName = document.getElementById('search-town').value;
     getСityСoordinates(cityName, lang)
         .then((cityCoord) => {
@@ -94,10 +94,24 @@ document.getElementById('search-btn').addEventListener('click', () => {
             cityCoordinates = cityListCreater(cityCoord);
         })
         .catch((error) => {
+            document.getElementsByClassName('error_table')[0].innerHTML = "Город не найден";
+            document.getElementsByClassName('error_table')[0].classList.add('vissible');
+            setTimeout(() => {
+                document.getElementsByClassName('error_table')[0].classList.remove('vissible');
+            }, 5000);
+            console.log(error);
             console.log(error);
         });
-});
 
+}
+document.getElementById('search-btn').addEventListener('click', () => {
+    if (document.getElementsByClassName('control-search__input')[0].value)
+        searchCity();
+});
+document.addEventListener('keydown', (event) => {
+    if (document.getElementsByClassName('control-search__input')[0].value && event.key == "Enter")
+        searchCity();
+});
 document.getElementById('cities-list').addEventListener('click', (e) => {
     cityCoordinates = cityCoordinates[e.target.id];
     cityNumber = +e.target.id;
@@ -109,8 +123,13 @@ document.getElementById('cities-list').addEventListener('click', (e) => {
     updateBg();
 });
 
-document.getElementById('microphone').addEventListener('click', recordVoice);
+document.getElementById('microphone').addEventListener('click', () => {
+    recordVoice();
 
+});
+document.getElementById("play-btn").addEventListener('click', () => {
+    voiceSpeak();
+});
 window.onbeforeunload = () => {
     localStorage.setItem('lang', lang);
     localStorage.setItem('degrees', degrees);

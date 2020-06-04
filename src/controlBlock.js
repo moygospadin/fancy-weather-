@@ -27,10 +27,12 @@ function controlBlockCreater() {
     </div>
     <div class="control-search">
     <input id="search-town" class="control-search__input" type="text">
-    <div id="microphone" class="control-search__microphone"><img src="assets/microphone.svg" alt=""></div>
+    <div id="microphone" class="control-search__microphone"><img class="microphone_img" src="assets/microphone.svg" alt=""></div>
     <button id="search-btn" class="control-search__btn">SEARCH</button>
-    
-    </div>`;
+    <button id="play-btn" class="control-play__btn"></button>
+    </div>
+    <div class="error_table pulse"></div>
+    `;
     return controlBlock;
 }
 

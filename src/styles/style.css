@@ -114,7 +114,7 @@ body {
 }
 
 .control-search__input {
-    width: 240px;
+    width: 205px;
     height: 44px;
     padding: 13px 15px;
     background-color: rgb(76, 82, 85, 0.4);
@@ -154,6 +154,22 @@ body {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
+}
+
+.control-play__btn {
+    margin-left: 2px;
+    width: 44px;
+    height: 44px;
+    background-color: rgb(174, 181, 185, 0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: url(https://svgsilh.com/svg_v2/1718976.svg);
+    background-size: contain;
 }
 
 .control__cities-block {
@@ -467,6 +483,10 @@ body {
 }
 
 @media screen and (max-width: 640px) {
+    .control-play__btn {
+        width: 35px;
+        height: 35px;
+    }
     .control-buttons__bg-switcher-img {
         width: 17px;
         height: 17px;
@@ -523,6 +543,10 @@ body {
 }
 
 @media screen and (max-width: 450px) {
+    .control-play__btn {
+        width: 25px;
+        height: 25px;
+    }
     .control-buttons__bg-switcher {
         width: 25px;
         height: 25px;
@@ -545,7 +569,7 @@ body {
         padding: 3px 4px;
     }
     .control-search__input {
-        width: 80px;
+        width: 70px;
         height: 25px;
         padding: 6px 3px;
         font-size: 12px;
@@ -587,4 +611,55 @@ body {
         width: 11vw;
         height: 11vw;
     }
+}
+
+.pulse {
+    cursor: pointer;
+    box-shadow: 0 0 0 rgba(255, 36, 0, 0.7);
+    animation: pulse 2s infinite;
+    border-radius: 20px;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(255, 36, 0, 0.7);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(255, 36, 0, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(255, 36, 0, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(255, 36, 0, 0.7);
+        box-shadow: 0 0 0 0 rgba(255, 36, 0, 0.7);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(255, 36, 0, 0);
+        box-shadow: 0 0 0 10px rgba(255, 36, 0, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(255, 36, 0, 0);
+        box-shadow: 0 0 0 0 rgba(255, 36, 0, 0);
+    }
+}
+
+.error_table {
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: black;
+    max-width: 320px;
+}
+
+.vissible {
+    display: block !important;
 }
